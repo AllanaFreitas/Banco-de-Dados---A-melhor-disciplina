@@ -43,3 +43,9 @@ FROM livros
 GROUP BY autor
 ORDER BY total_livros DESC
 LIMIT 1;
+
+SELECT produto, SUM(receita) AS receita_total
+FROM transacoes
+GROUP BY produto
+ORDER BY receita_total
+LIMIT 1;
