@@ -29,3 +29,7 @@ LEFT JOIN matriculas ON alunos.id_aluno = matriculas.id_aluno;
 SELECT autores.nome AS nome_do_autor, livros.titulo AS titulo_do_livro
 FROM autores
 LEFT JOIN livros ON autores.id = livros.autor_id;
+
+SELECT cursos.nome AS nome_do_curso, alunos.nome AS nome_do_aluno
+FROM cursos
+RIGHT JOIN alunos ON cursos.id = alunos.curso_id;
