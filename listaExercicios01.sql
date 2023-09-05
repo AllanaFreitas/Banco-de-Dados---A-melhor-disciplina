@@ -11,3 +11,5 @@ SELECT produto, SUM(receita) AS receita_total FROM transacoes GROUP BY produto;
 SELECT autor, COUNT(*) AS total_livros FROM livros GROUP BY autor;
 
 SELECT curso, COUNT(*) AS total_alunos FROM alunos GROUP BY curso;
+
+SELECT produto, AVG(receita) AS media_receita FROM transacoes GROUP BY produto;
