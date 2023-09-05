@@ -21,3 +21,7 @@ SELECT autor, COUNT(*) AS total_livros FROM livros GROUP BY autor HAVING total_l
 SELECT livros.titulo, autores.nome autor
 FROM livros
 JOIN autores ON livros.autor = autores.id_autor;
+
+SELECT alunos.nome_aluno, matriculas.curso
+FROM alunos
+LEFT JOIN matriculas ON alunos.id_aluno = matriculas.id_aluno;
