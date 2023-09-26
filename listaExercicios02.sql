@@ -51,3 +51,40 @@ CALL sp_ContarLivrosPorCategoria('Ciência', @total_livros);
 CALL sp_ContarLivrosPorCategoria('Ficção Científica', @total_livros);
 CALL sp_ContarLivrosPorCategoria('História', @total_livros);
 CALL sp_ContarLivrosPorCategoria('Autoajuda', @total_livros);
+
+/* 4 */
+
+DELIMITER //
+
+CREATE PROCEDURE sp_VerificarLivrosCategoria(IN nome_da_categoria VARCHAR(200), OUT livrospossuidos VARCHAR(3))
+BEGIN
+
+
+DECLARE contador INT;
+SET contador = 0;
+
+SELECT COUNT(*) INTO contador
+FROM livro
+INNER JOIN Categoria ON livro.Categoria_ID = Categoria.Categoria_ID
+WHERE Categoria.Nome = nome_da_categoria;
+
+IF contador > 0 THEN
+    SET livrospossuidos = 'Sim';
+ELSE
+    SET livrospossuidos = 'Não';
+END IF;
+
+
+
+END;
+//
+
+DELIMITER ;
+
+CALL sp_VerificarLivrosCategoria('Romance', @livrospossuidos);
+CALL sp_VerificarLivrosCategoria('Ciência', @livrospossuidos);
+CALL sp_VerificarLivrosCategoria('Ficção Científica',@livrospossuidos);
+CALL sp_VerificarLivrosCategoria('História', @livrospossuidos);
+CALL sp_VerificarLivrosCategoria('Autoajuda', @livrospossuidos);
+
+SELECT @livrospossuidos;
