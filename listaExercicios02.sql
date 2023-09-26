@@ -218,3 +218,26 @@ DELIMITER ;
 
 CALL sp_AutorMaisAntigo(@nomedoautormaisantigo);
 SELECT @nomedoautormaisantigo AS 'Nome do Autor Mais Antigo';
+
+/* 9 */
+
+-- Delimiter: delimitador é um caractere ou sequência de caracteres usado para
+DELIMITER //
+
+-- Create procedure: você pode criar procedimentos armazenados para encapsular uma série de instruções SQL em uma unidade de trabalho reutilizável e modular.
+CREATE PROCEDURE sp_ListarAutores()
+-- O begin: normalmente é usada em conjunto com *`END`*para definir
+BEGIN
+-- esse select retorna o nome e sobrenome dos autores
+SELECT Nome, Sobrenome
+FROM Autor;
+
+-- o end:  finaliza o bloco
+END;
+//
+
+DELIMITER ;
+-- comando é frequentemente usado em*`;`*) como delimitador de instrução.
+
+CALL sp_ListarAutores();
+-- chama sp_ListaAutores();, no entanto invoca o que vai fazer no select
