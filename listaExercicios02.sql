@@ -104,3 +104,39 @@ END;
 DELIMITER ;
 
 CALL sp_LivrosAteAno(1999);
+
+/* 6 */
+
+DELIMITER //
+
+CREATE PROCEDURE sp_TitulosPorCategoria(IN nome_da_categoria VARCHAR(200))
+BEGIN
+
+
+DECLARE titulo_do_livro VARCHAR(255);
+
+DECLARE cursor_dos_livros CURSOR FOR
+    SELECT Titulo
+    FROM livro
+    INNER JOIN Categoria ON livro.Categoria_ID = Categoria.Categoria_ID
+    WHERE Categoria.Nome = nome_da_categoria;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET titulo_do_livro = NULL;
+
+OPEN cursor_livros;
+read_loop: LOOP
+    FETCH cursor_dos_livros INTO titulo_do_livro;
+    IF titulo_do_livro IS NULL THEN
+        LEAVE read_loop;
+    END IF;
+    SELECT titulo_do_livro;
+END LOOP;
+CLOSE cursor_dos_livros;
+
+
+
+END;
+//
+
+DELIMITER ;
+
+CALL sp_TitulosPorCategoria('Romance');
