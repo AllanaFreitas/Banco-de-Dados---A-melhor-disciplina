@@ -176,3 +176,45 @@ END;
 DELIMITER ;
 
 CALL sp_AdicionarLivro('É assim que acaba', 1, 2016, 374, 1);
+
+/* 8 */
+
+DELIMITER //
+
+CREATE PROCEDURE sp_AutorMaisAntigo(OUT nome_do_autor VARCHAR(255))
+BEGIN
+DECLARE datadonascimentoantigo DATE;
+DECLARE nomedoautorantigo VARCHAR(255);
+SET datadonascimentoantiga = NULL;
+DECLARE EXIT HANDLER FOR NOT FOUND SET nome_autor_antigo = NULL;
+
+
+DECLARE cursor_do_autor CURSOR FOR
+SELECT nome, data_de_Nascimento
+FROM Autor
+WHERE datadonascimento IS NOT NULL;
+
+OPEN cursor_do_autor;
+
+autor_loop: LOOP
+    FETCH cursor_do_autor INTO nomedoautorantigo, datadonascimentoantiga;
+    IF nomedoautorantigo IS NULL THEN
+        LEAVE autor_loop;
+    END IF;
+
+    IF datadonascimentoantigo IS NULL OR datadonascimentoantigo > datadonascimentoantigo THEN
+        SET datadonascimentoantigo = datadonascimentoantigo;
+        SET nome_do_autor = nomedoautorantigo;
+    END IF;
+END LOOP autor_loop;
+CLOSE cursor_do_autor;
+
+
+
+END;
+//
+
+DELIMITER ;
+
+CALL sp_AutorMaisAntigo(@nomedoautormaisantigo);
+SELECT @nomedoautormaisantigo AS 'Nome do Autor Mais Antigo';
