@@ -88,3 +88,19 @@ CALL sp_VerificarLivrosCategoria('História', @livrospossuidos);
 CALL sp_VerificarLivrosCategoria('Autoajuda', @livrospossuidos);
 
 SELECT @livrospossuidos;
+
+/* 5 */
+
+DELIMITER //
+
+CREATE PROCEDURE sp_LivrosAteAno(IN ano_especifico INT)
+BEGIN
+SELECT Titulo, Publicacao_do_ano
+FROM Livro
+WHERE Publicacao_do_ano <= ano_especifico;
+END;
+//
+
+DELIMITER ;
+
+CALL sp_LivrosAteAno(1999);
